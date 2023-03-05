@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Food APK</title>
+	
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body class="container bg-body-tertiary">
+<div>
+	<h1>Market Prices Comparison</h1>
+
+</div>
+	
+	<nav class="navbar navbar-expand-lg ">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">FoodAPK</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">About</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							Location
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">Abuja</a></li>
+							<li><a class="dropdown-item" href="#">Benin City</a></li>
+							<li><a class="dropdown-item" href="#">Lagos</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="#">Add Location</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div id="modal" class="modal-dialog modal-dialog-centered">
+	  
+	</div>
+  </div>
+	<!--cards-->
+	<div id="cards" class="row row-cols-auto justify-content-center gap-3 p-2 p-5">
+
+
+	</div>
+
+	<script src="script.js"></script>
+	<script>
+		const elements = foodArray.map((food, index) => {
+			return `
+
+			<div class="card col p-2" style="width: 18rem;">
+			<img src="img/${food.img}" class="card-img-top h-100 w-100" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">${food.name}</h5>
+				<p class="card-text font-strong">Average Price: ₦${food.prices.average}</p>
+				<button onClick="show(${index})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+	Check Price
+  </button>
+			</div>
+		</div>
+`
+		})
+
+		const cards = document.querySelector("#cards");
+		cards.innerHTML = elements.join(" ");
+
+		function show(index){
+			const item = foodArray[index];
+			const modal = document.querySelector("#modal");
+
+			modal.innerHTML = `
+			<div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="staticBackdropLabel">${item.name}</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <p>Abuja: ${item.prices.abuja}</p>
+		  <p>Benin City: ${item.prices.benin}</p>
+		  <p>Lagos: ${item.prices.lagos}</p>
+		  <p>Average Price: ${item.prices.average}</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Edit</button>
+		</div>
+	  </div>
+			`
+		}
+	</script>
+
+
+	<script src="bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
